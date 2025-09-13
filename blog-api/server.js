@@ -1,5 +1,5 @@
 const express = require('express');
-const dotenv = require('dotenv')
+const dotenv = require('dotenv');
 const connectDB = require('./config/database');
 const cors = require('cors');
 const swaggerDocs = require('./config/swagger');
@@ -14,7 +14,7 @@ app.use(express.json());
 
 
 // Routes
-app.use('/api/auth', require('./src/users/routes'));
+app.use('/api/auth', require('./src/auth/routes'));
 app.use('/api/posts', require('./src/posts/routes'));
 
 swaggerDocs(app);
