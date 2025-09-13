@@ -23,7 +23,7 @@ const options = {
     },
     security: [{ bearerAuth: [] }]
   },
-  apis: ['./routes/*.js'], // where to scan for API docs
+  apis: ['./src/*/*.js'], // where to scan for API docs
 };
 
 const swaggerSpec = swaggerJsDoc(options);
