@@ -19,6 +19,11 @@ app.use('/api/posts', require('./src/posts/routes'));
 
 swaggerDocs(app);
 
+// Catch 404 Error
+app.use((req, res) => {
+    res.status(404).send('<h1>Page not Found</h1>')
+})
+
 app.listen(process.env.PORT, () => {
     console.log(`Server running on port: ${process.env.PORT}`)
 });
