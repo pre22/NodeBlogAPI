@@ -3,6 +3,14 @@ const auth = require('../auth/middleware');
 const { getPosts, getMyPosts, createPost } = require('./controllers');
 
 /**
+ * @swagger
+ * tags:
+ *   name: Posts
+ *   description: Post API Module
+ */
+
+
+/**
 * @swagger
 * /api/posts:
 *  get:
@@ -21,7 +29,7 @@ router.get('/', getPosts);
  *     summary: Get all Posts made by Logged in user
  *     tags: [Posts]
  *     responses:
- *       200:
+ *       201:
  *         description: Successful Response
  */
 router.get('/my-posts', auth, getMyPosts);
@@ -32,9 +40,25 @@ router.get('/my-posts', auth, getMyPosts);
  *   post:
  *     summary: Create Post
  *     tags: [Posts]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - title
+ *               - body
+ *             properties:
+ *               title:
+ *                 type: string
+ *               body:
+ *                 type: string
  *     responses:
- *       200:
- *         description: Successful response
+ *       201:
+ *         description: Post Created Successfully
+ *       401:
+ *         description: Invalid Credentials
  */
 router.post('/', auth, createPost);
 
