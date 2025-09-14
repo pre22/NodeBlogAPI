@@ -1,9 +1,26 @@
 const User = require('../users/models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const Joi = require('joi');
+
+const register_schema = Joi.object({
+    username: Joi.string().required(),
+    email: Joi.string().email().required(),
+    password: Joi.string().min(6).required()
+});
+
+const login_schema = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().min(6).required()
+})
 
 
 const register = async (req, res) => {
+    const { error } = register_schema.validate(req.body);
+    if (error) {
+        return res.status(400).json({ error: error.details[0].message });
+    }
+
     const { username, email, password } = req.body;
 
     try {
@@ -22,6 +39,11 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
+    const { error } = login_schema.validate(req.body);
+    if (error) {
+        return res.status(400).json({ error: error.details[0].message });
+    }
+
     const { email, password } = req.body;
 
     try {
