@@ -17,6 +17,11 @@ const login_schema = Joi.object({
 
 const register = async (req, res) => {
     const { error } = register_schema.validate(req.body);
+
+    if (!req.body || Object.keys(req.body).length === 0) {
+        return res.status(400).json({ error: 'body cannot be empty' });
+    }
+
     if (error) {
         return res.status(400).json({ error: error.details[0].message });
     }
@@ -44,6 +49,11 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
     const { error } = login_schema.validate(req.body);
+
+    if (!req.body || Object.keys(req.body).length === 0) {
+        return res.status(400).json({ error: 'body cannot be empty' });
+    }
+    
     if (error) {
         return res.status(400).json({ error: error.details[0].message });
     }
